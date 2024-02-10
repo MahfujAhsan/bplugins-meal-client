@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 
 export default function Navbar() {
+    const [currentUser] = useCurrentUser();
     const { user } = useAuth();
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
 
@@ -23,8 +24,6 @@ export default function Navbar() {
         const localTheme = localStorage.getItem("theme");
         document.querySelector("html").setAttribute("data-theme", localTheme);
     }, [theme])
-
-    const [currentUser] = useCurrentUser();
 
     return (
         <div className='px-[10px] md:px-[100px] py-[6px] flex justify-between items-center shadow-xl sticky top-0 z-10 mx-[1px] rounded-lg navbar__container'>
