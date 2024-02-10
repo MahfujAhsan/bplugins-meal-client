@@ -30,19 +30,8 @@ export default function DailyCost() {
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-  // formatting Date
-  // const datePlusOne = addDays(selected, 1);
-  const dateUTC = selected.toISOString();
-
-
-  // Calculate the start date of the current month
-  const currentDate = new Date();
-  const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-
-  // Calculate the end date of the current month
-  const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-
   const onSubmit = async (data) => {
+    const dateUTC = selected.toISOString();
 
     const costData = {
       ...data,
@@ -64,6 +53,13 @@ export default function DailyCost() {
     setLoading(false);
   };
 
+
+  // Calculate the start date of the current month
+  const currentDate = new Date();
+  const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+
+  // Calculate the end date of the current month
+  const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
 
   return (
     <div className="h-full flex flex-col justify-center">
