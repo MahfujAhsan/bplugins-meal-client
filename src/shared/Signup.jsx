@@ -32,7 +32,7 @@ export default function Signup() {
             updateUserProfile(data.name, defaultAvatar)
               .then(() => {
                 const userData = { name: name, email: email, image: defaultAvatar };
-                axiosSecure.post('http://localhost:200/api/v1/users', userData)
+                axiosSecure.post('/api/v1/users', userData)
                   .then((response) => {
                     navigate('/');
                     reset();

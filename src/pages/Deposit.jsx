@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import { HiCurrencyBangladeshi } from "react-icons/hi";
 import { useQuery } from "react-query";
@@ -38,7 +37,7 @@ export default function Deposit() {
         }
         try {
             setLoading(true)
-            axios.post('http://localhost:200/api/v1/deposit', depositData)
+            axiosSecure.post('/api/v1/deposit', depositData)
                 .then((response) => {
                     if (response?.data?.success) {
                         toast.success(`Amount Deposited Successfully to ${data?.walletID}'s Wallet!`)

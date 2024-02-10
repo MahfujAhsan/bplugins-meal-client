@@ -4,10 +4,10 @@ import 'react-day-picker/dist/style.css';
 import { useEffect, useState } from "react";
 import { format, isBefore, isAfter, isSameMonth, endOfMonth, addDays } from 'date-fns';
 import useAuth from "../hooks/useAuth";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import '../index.css'
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 export default function Meal() {
@@ -17,6 +17,7 @@ export default function Meal() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuth();
+  const [axiosSecure] = useAxiosSecure();
 
   useEffect(() => {
     if (!selected) {
@@ -48,7 +49,7 @@ export default function Meal() {
     } else {
       setSelectionError("")
     }
-    const saveMeal = await axios.post('http://localhost:200/api/v1/meal', formData)
+    const saveMeal = await axiosSecure.post('/api/v1/meal', formData)
     if (saveMeal?.data) {
       reset();
       toast.success(`Your meal updated successfully!`)
