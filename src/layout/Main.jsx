@@ -33,8 +33,7 @@ export default function Main() {
     }
 
     useEffect(() => {
-        const theme = localStorage.getItem('theme')
-        console.log(theme)
+        localStorage.getItem('theme')
     }, [])
     return (
         <section>

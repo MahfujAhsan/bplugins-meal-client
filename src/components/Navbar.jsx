@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 
 export default function Navbar() {
-    const [currentUser] = useCurrentUser();
+    const [currentUser, isCurrentUserLoading] = useCurrentUser();
     const { user } = useAuth();
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
 
@@ -48,7 +48,8 @@ export default function Navbar() {
                     </label>
                     <label htmlFor="my-drawer-2" className="btn drawer-button lg:hidden"><AiOutlineBars size={24} /></label>
                     <ul className='hidden md:block'>
-                        {user?.uid ? <div className="dropdown items-center">
+                        {/* Render currentUser only if user is signed in */}
+                        {user && !isCurrentUserLoading ? <div className="dropdown items-center">
                             <Link to="/profile">
                                 <img className="w-12 h-12 mx-auto cursor-pointer rounded-full" src={currentUser?.image} alt="" />
                             </Link>
