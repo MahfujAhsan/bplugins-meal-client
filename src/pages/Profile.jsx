@@ -90,8 +90,8 @@ export default function Profile() {
         {
           !loading ? <img onClick={handleImageClick} className="w-28 h-28 mx-auto cursor-pointer rounded-full" src={image} alt="" /> : <img className="w-28 h-28 mx-auto cursor-pointer rounded-full" src={imageLoader} alt="" />
         }
-        <p className="text-center mt-2 font-semibold">You Joined: <span className="text-indigo-800 font-bold common__heading">{format(createdAt, 'PP')}</span></p>
-        <div className="flex space-x-6 justify-center mt-6">
+        <p className="text-center mt-6 font-semibold">You Joined: <span className="text-indigo-800 font-bold common__heading">{format(createdAt, 'PP')}</span></p>
+        <div className="flex space-x-6 justify-center mt-2">
           <h3 className="font-semibold">bPluginsID: <span className="text-indigo-800 font-bold common__heading">{bPluginsID}</span></h3>
           <h3 className="capitalize font-semibold">Role: <span className="text-indigo-800 font-bold common__heading">{role}</span></h3>
         </div>
