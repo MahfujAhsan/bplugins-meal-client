@@ -76,7 +76,8 @@ export default function Signin() {
             <div className="label">
               <span className="label-text">Password:</span>
             </div>
-            <input {...register("password", { required: true, minLength: 6, maxLength: 20, pattern: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/ })} type="password" placeholder="Password" className="input input-bordered w-[500px] mx-auto" />
+            {/* pattern: /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/  */}
+            <input {...register("password", { required: true, minLength: 6, maxLength: 20 })} type="password" placeholder="Password" className="input input-bordered w-[500px] mx-auto" />
             {errors.password?.type === 'required' && <span className='mt-2 ml-1 text-[#CA4142] font-semibold text-xs'>Password is required</span>}
             {errors.password?.type === 'minLength' && <span className='mt-2 ml-1 text-[#CA4142] font-semibold text-xs'>Password must be 6 characters</span>}
             {errors.password?.type === 'maxLength' && <span className='mt-2 ml-1 text-[#CA4142] font-semibold text-xs'>Less then 20 characters</span>}
