@@ -5,7 +5,7 @@ import useAxiosSecure from "./useAxiosSecure";
 const useCurrentUser = () => {
     const { user, loading } = useAuth();
     const [axiosSecure] = useAxiosSecure();
-    
+
     const { data: currentUser, isLoading: isCurrentUserLoading, refetch } = useQuery({
         enabled: !loading,
         queryKey: ["currentUser", user?.email],
@@ -17,8 +17,7 @@ const useCurrentUser = () => {
                 console.error("Error fetching currentUserData data:", error);
                 throw error;
             }
-        },
-        staleTime: 1000
+        }
     })
     return [currentUser, isCurrentUserLoading, refetch];
 }

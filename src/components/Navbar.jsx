@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 
 export default function Navbar() {
-    const [currentUser, isCurrentUserLoading] = useCurrentUser();
+    // const [currentUser, isCurrentUserLoading] = useCurrentUser();
     const { user } = useAuth();
     const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "light");
 
@@ -24,6 +24,7 @@ export default function Navbar() {
         const localTheme = localStorage.getItem("theme");
         document.querySelector("html").setAttribute("data-theme", localTheme);
     }, [theme])
+
 
     return (
         <div className='px-[10px] md:px-[100px] py-[6px] flex justify-between items-center shadow-xl sticky top-0 z-10 mx-[1px] rounded-lg navbar__container'>
@@ -49,9 +50,9 @@ export default function Navbar() {
                     <label htmlFor="my-drawer-2" className="btn drawer-button lg:hidden"><AiOutlineBars size={24} /></label>
                     <ul className='hidden md:block'>
                         {/* Render currentUser only if user is signed in */}
-                        {user && !isCurrentUserLoading ? <div className="dropdown items-center">
+                        {user ? <div className="dropdown items-center">
                             <Link to="/profile">
-                                <img className="w-12 h-12 mx-auto cursor-pointer rounded-full" src={currentUser?.image} alt="" />
+                                <img className="w-14 h-14 mx-auto cursor-pointer rounded-full" src={user?.photoURL} alt="" />
                             </Link>
                         </div> : <li>
                             <Link className='bg-indigo-400 text-white font-bold px-[20px] py-[7px] rounded-lg shadow-lg text-[14px]' to="/sign-in">Login</Link>
