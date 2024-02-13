@@ -4,6 +4,7 @@ import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 import { useState } from "react";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { FaSpinner } from "react-icons/fa6";
 
 
 export default function Signup() {
@@ -109,7 +110,12 @@ export default function Signup() {
             signUpError && <p className="text-error mt-2 font-semibold text-sm">{signUpError}</p>
           }
           <div className="form-control mt-8">
-            <input type="submit" className={`py-3 bg-indigo-700 w-[500px] mx-auto rounded-md text-white cursor-pointer ${disabled ? 'cursor-not-allowed opacity-50' : ''}`} disabled={disabled} value="SignUp" />
+            <button disabled={disabled} type="submit" className={`py-3 bg-indigo-700 w-[500px] cursor-pointer mx-auto rounded-md text-white text-center ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}>
+              {disabled ? <div className="flex justify-center items-center gap-3">
+                <span>Please Wait</span>
+                <FaSpinner size={20} />
+              </div> : "SignUp"}
+            </button>
           </div>
 
         </form>

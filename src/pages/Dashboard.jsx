@@ -3,6 +3,9 @@ import useAxiosSecure from "../hooks/useAxiosSecure"
 import Spinner from "../shared/Spinner"
 import { HiCurrencyBangladeshi } from "react-icons/hi";
 import { FaPeopleRoof } from "react-icons/fa6";
+import { CartesianGrid, XAxis, YAxis, Tooltip, Area, AreaChart } from 'recharts';
+import { format } from "date-fns"
+
 
 
 export default function Dashboard() {
@@ -24,7 +27,7 @@ export default function Dashboard() {
     }
   });
 
-  const { data: costs, isLoading: costsLoading } = useQuery({
+  const { data: costs = {}, isLoading: costsLoading } = useQuery({
     queryKey: 'expenses',
     queryFn: async () => {
       const getCosts = await axiosSecure.get('/api/v1/cost');
@@ -38,49 +41,71 @@ export default function Dashboard() {
 
   const currentBalance = totalWalletAmount - totalExpenseAmount;
 
-  const currentPersonWalletAmount = (totalWalletAmount - totalExpenseAmount) / users?.length;
-
   if (isLoading || usersLoading || costsLoading) {
     return <Spinner />
   }
 
+  // console.log(costs?.data)
+
+  const costData = costs?.data?.map((cost) => {
+    const date = format(cost?.date, 'PP');
+    const newCostData = { ...cost, date }
+    return newCostData;
+  })
+
   return (
-    <div className="grid grid-cols-3 w-11/12 mx-auto mt-6 text-center gap-8">
-      <div className="bg-slate-500 py-10 px-2 rounded-md text-white shadow-2xl">
-        <h3 className="text-3xl font-semibold">Current Members</h3>
-        <p className="text-4xl font-bold mt-3 flex items-center justify-center space-x-2">
-          <FaPeopleRoof />
-          <span>{users?.length}</span>
-        </p>
+    <>
+      <div className="grid grid-cols-4 w-11/12 mx-auto mt-6 text-center gap-4">
+        <div className="bg-slate-500 py-4 px-2 rounded-md text-white shadow-2xl">
+          <h3 className="text-xl font-semibold">Current Members</h3>
+          <p className="text-2xl font-bold mt-3 flex items-center justify-center space-x-2">
+            <FaPeopleRoof />
+            <span>{users?.length}</span>
+          </p>
+        </div>
+        <div className="bg-indigo-500 py-4 px-2 rounded-md text-white shadow-2xl">
+          <h3 className="text-xl font-semibold">Total Amount</h3>
+          <p className="text-2xl font-bold mt-3 flex items-center justify-center space-x-2">
+            <HiCurrencyBangladeshi />
+            <span>{totalWalletAmount}</span>
+          </p>
+        </div>
+        <div className="bg-red-500 py-4 px-2 rounded-md text-white shadow-2xl">
+          <h3 className="text-xl font-semibold">Total Expense</h3>
+          <p className="text-2xl font-bold mt-3 flex items-center justify-center space-x-2">
+            <HiCurrencyBangladeshi />
+            <span>{totalExpenseAmount}</span>
+          </p>
+        </div>
+        <div className="bg-green-500 py-4 px-2 rounded-md text-white shadow-2xl">
+          <h3 className="text-xl font-semibold">Current Balance</h3>
+          <p className="text-2xl font-bold mt-3 flex items-center justify-center space-x-2">
+            <HiCurrencyBangladeshi />
+            <span>{currentBalance}</span>
+          </p>
+        </div>
       </div>
-      <div className="bg-indigo-500 py-10 px-2 rounded-md text-white shadow-2xl">
-        <h3 className="text-3xl font-semibold">Total Amount</h3>
-        <p className="text-4xl font-bold mt-3 flex items-center justify-center space-x-2">
-          <HiCurrencyBangladeshi />
-          <span>{totalWalletAmount}</span>
-        </p>
+      <div className="grid grid-cols-2 gap-10 mt-10 w-11/12 mx-auto">
+        <AreaChart width={600} height={400} data={costData}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="date" />
+          <YAxis />
+          <CartesianGrid strokeDasharray="3 3" />
+          <Tooltip />
+          <Area type="monotone" dataKey="expenseAmount" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
+          <Area type="monotone" dataKey="bazarDetails" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
+        </AreaChart>
       </div>
-      <div className="bg-red-500 py-10 px-2 rounded-md text-white shadow-2xl">
-        <h3 className="text-3xl font-semibold">Total Expense</h3>
-        <p className="text-4xl font-bold mt-3 flex items-center justify-center space-x-2">
-          <HiCurrencyBangladeshi />
-          <span>{totalExpenseAmount}</span>
-        </p>
-      </div>
-      <div className="bg-green-500 py-10 px-2 rounded-md text-white shadow-2xl">
-        <h3 className="text-3xl font-semibold">Current Balance</h3>
-        <p className="text-4xl font-bold mt-3 flex items-center justify-center space-x-2">
-          <HiCurrencyBangladeshi />
-          <span>{currentBalance}</span>
-        </p>
-      </div>
-      <div className="bg-rose-600 py-10 px-2 rounded-md text-white shadow-2xl">
-        <h3 className="text-3xl font-semibold">Person Wallet Balance</h3>
-        <p className="text-4xl font-bold mt-3 flex items-center justify-center space-x-2">
-          <HiCurrencyBangladeshi />
-          <span>{currentPersonWalletAmount}</span>
-        </p>
-      </div>
-    </div>
+    </>
   )
 }

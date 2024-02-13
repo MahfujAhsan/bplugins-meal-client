@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import "../index.css"
 import { AiOutlineBars } from "react-icons/ai";
-import useCurrentUser from "../hooks/useCurrentUser";
+// import useCurrentUser from "../hooks/useCurrentUser";
 import { useEffect, useState } from "react";
 
 
@@ -27,14 +27,14 @@ export default function Navbar() {
 
 
     return (
-        <div className='px-[10px] md:px-[100px] py-[6px] flex justify-between items-center shadow-xl sticky top-0 z-10 mx-[1px] rounded-lg navbar__container'>
+        <div className='px-[10px] md:px-[100px] pt-2 pb-[3px] flex justify-between items-center shadow-xl sticky top-0 z-10 mx-[1px] navbar__container bg-slate-400'>
             <div className="flex h-full justify-between w-full items-center">
                 <div className="h-full">
                     <Link to="/">
-                        <h3 className='text-[22px] md:text-[26px] font-bold'><span className='text-indigo-700'>bPlugins</span> <span className='text-indigo-900'>Meal</span></h3>
+                        <h3 className='text-[22px] md:text-[26px] font-bold'><span className='text-indigo-700 common__heading'>bPlugins</span> <span className='text-indigo-900 common__heading'>Meal</span></h3>
                     </Link>
                 </div>
-                <div className="h-full flex items-center gap-6">
+                <div className="h-full justify-center flex items-center gap-6">
                     <label className="swap swap-rotate">
 
                         {/* this hidden checkbox controls the state */}
@@ -49,10 +49,9 @@ export default function Navbar() {
                     </label>
                     <label htmlFor="my-drawer-2" className="btn drawer-button lg:hidden"><AiOutlineBars size={24} /></label>
                     <ul className='hidden md:block'>
-                        {/* Render currentUser only if user is signed in */}
                         {user ? <div className="dropdown items-center">
                             <Link to="/profile">
-                                <img className="w-14 h-14 mx-auto cursor-pointer rounded-full" src={user?.photoURL} alt="" />
+                                <img className="w-12 h-12 mx-auto cursor-pointer rounded-full" src={user?.photoURL} alt="" />
                             </Link>
                         </div> : <li>
                             <Link className='bg-indigo-400 text-white font-bold px-[20px] py-[7px] rounded-lg shadow-lg text-[14px]' to="/sign-in">Login</Link>

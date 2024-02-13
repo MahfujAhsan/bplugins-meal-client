@@ -45,7 +45,7 @@ export default function Main() {
                 </div>
                 {user && <div className="drawer-side top-[55px] md:top-0">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-full sidebar__container md:w-64 border-r-2 bg-[#F17D9A] md:bg-transparent text-white md:text-black overflow-y-auto rounded-lg">
+                    <ul className="menu p-4 w-full sidebar__container md:w-64 border-r-2 bg-[#F17D9A] md:bg-transparent text-white md:text-black overflow-y-auto">
 
                         <div className="flex flex-col h-full justify-between">
                             <div>

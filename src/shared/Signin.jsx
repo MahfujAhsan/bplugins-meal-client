@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
+import { FaSpinner } from "react-icons/fa6";
 
 
 export default function Signin() {
@@ -87,7 +88,12 @@ export default function Signin() {
             signUpError && <p className="text-error mt-2 font-semibold text-sm">{signUpError}</p>
           }
           <div className="form-control mt-8">
-            <input disabled={disabled} type="submit" className={`py-3 bg-indigo-700 w-[500px] cursor-pointer mx-auto rounded-md text-white ${disabled ? 'cursor-not-allowed opacity-50' : ''}`} value="SignIn" />
+            <button disabled={disabled} type="submit" className={`py-3 bg-indigo-700 w-[500px] cursor-pointer mx-auto rounded-md text-white text-center ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}>
+              {disabled ? <div className="flex justify-center items-center gap-3">
+                <span>Please Wait</span>
+                <FaSpinner size={20} />
+              </div> : "SignIn"}
+            </button>
           </div>
         </form>
         <div className="mt-4">
