@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import '../index.css'
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 
 export default function Meal() {
@@ -32,16 +33,17 @@ export default function Meal() {
 
   let footer = <p>Please pick a day.</p>;
   if (selected) {
-    footer = <p className="mt-5 text-indigo-900">You picked <span className="font-semibold">{format(selected, 'PP')}</span>.</p>;
+    footer = <p className="mt-5 text-indigo-900 common__heading">You picked <span className="font-semibold">{format(selected, 'PP')}</span>.</p>;
   }
 
   const { register, handleSubmit, reset } = useForm();
 
+  const selectedDateUTC = selected?.toISOString();
+
+  const formatDate = format(selectedDateUTC, 'PP')
+
   const onSubmit = async (data) => {
-    setLoading(true);
-    const selectedDatePlusOne = addDays(selected, 1);
-    const selectedDateUTC = selectedDatePlusOne?.toISOString();
-    const formData = { ...data, selectedDate: selectedDateUTC, userEmail: user?.email };
+    const formData = { ...data, selectedDate: formatDate, userEmail: user?.email };
 
     if (!formData?.breakfast && !formData?.launch && !formData?.dinner) {
       setSelectionError(<p>Please select at least one!</p>);
@@ -49,11 +51,23 @@ export default function Meal() {
     } else {
       setSelectionError("")
     }
-    const saveMeal = await axiosSecure.post('/api/v1/meal', formData)
-    if (saveMeal?.data) {
-      reset();
-      toast.success(`Your meal updated successfully!`)
-      navigate('/skip-meals')
+    try {
+      setLoading(true);
+      const saveMeal = await axiosSecure.post('/api/v1/meal', formData)
+      if (saveMeal?.data) {
+        reset();
+        toast.success(`Your meal updated successfully!`)
+        navigate('/skip-meals')
+      }
+      setLoading(false);
+    } catch (error) {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: `${error?.response?.data?.message}`,
+        showConfirmButton: false,
+        timer: 2000
+      })
       setLoading(false);
     }
   }
