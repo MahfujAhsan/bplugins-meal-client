@@ -28,8 +28,11 @@ export default function Users() {
             confirmButtonText: 'Yes, Make Manager!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axiosSecure.patch(`/api/v1/users/manager/${user._id}`)
+                axiosSecure.patch(`/api/v1/users/manager/${user._id}`, {
+                    role: 'manager'
+                })
                     .then(response => {
+                        console.log(response)
                         if (response.status === 200) {
                             refetch();
                             Swal.fire(
