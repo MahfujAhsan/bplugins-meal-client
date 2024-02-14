@@ -47,7 +47,7 @@ const AuthProvider = ({ children }) => {
             // setLoading(false);
             // get and set token
             if (currentUser) {
-                axios.post('http://localhost:200/api/v1/jwt', { email: currentUser.email })
+                axios.post('https://bplugins-meal-api.vercel.app/api/v1/jwt', { email: currentUser.email })
                     .then((data) => {
                         localStorage.setItem('access-token', data?.data?.token)
                         // setLoading(false);
