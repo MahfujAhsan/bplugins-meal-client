@@ -38,11 +38,10 @@ export default function Meal() {
 
   const { register, handleSubmit, reset } = useForm();
 
-  const selectedDateUTC = selected?.toISOString();
-
-  const formatDate = format(selectedDateUTC, 'PP')
-
   const onSubmit = async (data) => {
+    const selectedDateUTC = selected.toISOString();
+
+    const formatDate = format(selectedDateUTC, 'PP')
     const formData = { ...data, selectedDate: formatDate, userEmail: user?.email };
 
     if (!formData?.breakfast && !formData?.launch && !formData?.dinner) {
