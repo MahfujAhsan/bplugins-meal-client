@@ -1,18 +1,15 @@
-import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import { useEffect } from "react";
 import { BiGridAlt } from 'react-icons/bi';
 import { CgProfile } from "react-icons/cg";
-import { MdNoMeals } from "react-icons/md";
-import { IoLogOut } from "react-icons/io5";
-import useAuth from "../hooks/useAuth";
-import { HiOutlineCurrencyBangladeshi } from "react-icons/hi";
 import { FaUsers } from "react-icons/fa6";
-import { GiHotMeal } from "react-icons/gi";
-import { IoWalletSharp } from "react-icons/io5";
-import { IoWalletOutline } from "react-icons/io5";
+import { GiExpense, GiHotMeal } from "react-icons/gi";
+import { HiOutlineCurrencyBangladeshi } from "react-icons/hi";
+import { IoLogOut, IoWalletOutline, IoWalletSharp } from "react-icons/io5";
+import { MdNoMeals } from "react-icons/md";
 import { PiShoppingCartFill } from "react-icons/pi";
-import { GiExpense } from "react-icons/gi";
-import { useEffect } from "react";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
+import useAuth from "../hooks/useAuth";
 import useManager from "../hooks/useManager";
 import Spinner from "../shared/Spinner";
 
@@ -22,7 +19,7 @@ export default function Main() {
 
     const [isManager, isManagerLoading] = useManager();
 
-    console.log(isManager)
+    // console.log(isManager)
 
     const navigate = useNavigate();
 
@@ -33,9 +30,9 @@ export default function Main() {
 
     const handleLogout = () => {
         logOut()
-            .then(() => { })
+            .then(() => { navigate('/sign-in') })
             .catch((err) => console.log(err))
-        navigate('/sign-in')
+
     }
 
     useEffect(() => {

@@ -1,21 +1,20 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layout/Main";
-import Error from "../shared/Error";
+import DailyCost from "../pages/DailyCost";
 import Dashboard from "../pages/Dashboard";
-import Signup from "../shared/Signup";
-import Signin from "../shared/Signin";
-import PrivateRoute from "../shared/PrivateRoute";
+import Deposit from "../pages/Deposit";
+import EditWallet from "../pages/EditWallet";
+import Expenses from "../pages/Expenses";
 import Meal from "../pages/Meal";
 import Profile from "../pages/Profile";
-import Deposit from "../pages/Deposit";
-import Users from "../pages/Users";
 import SkipMeals from "../pages/SkipMeals";
+import Users from "../pages/Users";
 import Wallets from "../pages/Wallets";
 import YourWallet from "../pages/YourWallet";
-import EditWallet from "../pages/EditWallet";
-import DailyCost from "../pages/DailyCost";
-import Expenses from "../pages/Expenses";
-import ManagerRoute from "../shared/AdminRoute";
+import Error from "../shared/Error";
+import PrivateRoute from "../shared/PrivateRoute";
+import Signin from "../shared/Signin";
+import Signup from "../shared/Signup";
 
 const router = createBrowserRouter([
     {
