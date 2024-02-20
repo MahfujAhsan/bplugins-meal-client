@@ -43,11 +43,14 @@ const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
+        let ignore = false;
+        if (ignore) return;
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
         });
+
         // Cleanup function to unsubscribe from the listener
-        return () => unsubscribe();
+        return () => { ignore = true; unsubscribe() };
     }, []); // Empty dependency array ensures this effect runs only once
     useEffect(() => {
         let ignore = false;
