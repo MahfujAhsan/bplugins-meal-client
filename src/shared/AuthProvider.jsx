@@ -43,31 +43,27 @@ const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        let ignore = false;
-        if (ignore) return;
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
             setUser(currentUser);
+            console.log('currentUser');
         });
 
         // Cleanup function to unsubscribe from the listener
-        return () => { ignore = true; unsubscribe() };
+        return () => { unsubscribe() };
     }, []); // Empty dependency array ensures this effect runs only once
     useEffect(() => {
-        let ignore = false;
-        if (!ignore) {
-            if (user) {
-                axios.post('http://localhost:5000/api/v1/jwt', { email: user.email })
-                    .then((data) => {
-                        localStorage.setItem('token', data?.data?.token)
-                        setLoading(false);
-                    })
-            } else {
-                localStorage.removeItem('token');
-                setLoading(false);
-            }
-            return () => { ignore = true; }
-
+        if (user) {
+            axios.post('http://localhost:5000/api/v1/jwt', { email: user.email })
+                .then((data) => {
+                    localStorage.setItem('token', data?.data?.token)
+                    setLoading(false);
+                })
+        } else {
+            localStorage.removeItem('token');
+            setLoading(false);
         }
+
+
     }, [user])
 
     const authInfo = {
