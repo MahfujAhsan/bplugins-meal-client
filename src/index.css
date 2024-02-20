@@ -56,3 +56,7 @@
 .rdp-month:last-child {
     width: 100%;
 }
+
+.recharts-wrapper {
+    width: 100% !important;
+}

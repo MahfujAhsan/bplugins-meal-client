@@ -5,6 +5,7 @@ import { HiCurrencyBangladeshi } from "react-icons/hi";
 import { FaPeopleRoof } from "react-icons/fa6";
 import { CartesianGrid, XAxis, YAxis, Tooltip, Area, AreaChart } from 'recharts';
 import { format } from "date-fns"
+import "../index.css"
 
 
 
@@ -86,7 +87,7 @@ export default function Dashboard() {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-10 mt-10 w-11/12 mx-auto">
-        <AreaChart width={600} height={400} data={costData}
+        <AreaChart width={650} height={400} data={costData}
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">

@@ -13,10 +13,16 @@ import { IoWalletOutline } from "react-icons/io5";
 import { PiShoppingCartFill } from "react-icons/pi";
 import { GiExpense } from "react-icons/gi";
 import { useEffect } from "react";
+import useManager from "../hooks/useManager";
+import Spinner from "../shared/Spinner";
 
 
 export default function Main() {
     const { user, logOut } = useAuth();
+
+    const [isManager, isManagerLoading] = useManager();
+
+    console.log(isManager)
 
     const navigate = useNavigate();
 
@@ -35,6 +41,11 @@ export default function Main() {
     useEffect(() => {
         localStorage.getItem('theme')
     }, [])
+
+    if (isManagerLoading) {
+        return <Spinner />
+    }
+
     return (
         <section>
             {!signInPage && !signUpPage && <Navbar />}
@@ -48,7 +59,7 @@ export default function Main() {
                     <ul className="menu p-4 w-full sidebar__container md:w-64 border-r-2 bg-[#F17D9A] md:bg-transparent text-white md:text-black overflow-y-auto">
 
                         <div className="flex flex-col h-full justify-between">
-                            <div>
+                            {isManager ? <div>
                                 <NavLink exact="true" activeclassname="active" className='common__flex common__items text-' to='/'>
                                     <BiGridAlt size={20} />
                                     <li className='text-[16px]'>Dashboard</li>
@@ -92,12 +103,28 @@ export default function Main() {
                                     <li className='text-[16px]'>Manage Users</li>
                                     <span className="text-[14px] font-semibold text-indigo-900 common__heading">(manager)</span>
                                 </NavLink>
+                            </div> : <div>
+
+                                <NavLink exact="true" activeclassname="active" className='common__flex common__items' to='/user-dashboard'>
+                                    <BiGridAlt size={20} />
+                                    <li className='text-[16px]'>Dashboard</li>
+                                </NavLink>
 
 
 
+                                <NavLink exact="true" activeclassname="active" className='common__flex common__items' to='/meal'>
+                                    <GiHotMeal size={20} />
+                                    <li className='text-[16px]'>Meal Settings</li>
+                                </NavLink>
 
 
-                            </div>
+
+                                <NavLink exact="true" activeclassname="active" className='common__flex common__items' to='/wallet'>
+                                    <IoWalletOutline size={20} />
+                                    <li className='text-[16px]'>Your Wallet</li>
+                                </NavLink>
+
+                            </div>}
                             <hr />
                             <div>
                                 <NavLink exact="true" activeclassname="active" className='common__flex common__items text-center' to='/profile'>

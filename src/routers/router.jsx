@@ -15,6 +15,7 @@ import YourWallet from "../pages/YourWallet";
 import EditWallet from "../pages/EditWallet";
 import DailyCost from "../pages/DailyCost";
 import Expenses from "../pages/Expenses";
+import ManagerRoute from "../shared/AdminRoute";
 
 const router = createBrowserRouter([
     {

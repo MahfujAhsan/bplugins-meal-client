@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useAuth from './useAuth';
 
 const axiosSecure = axios.create({
-    baseURL: 'https://bplugins-meal-api.vercel.app'
+    baseURL: 'http://localhost:200'
 })
 
 const useAxiosSecure = () => {
@@ -14,8 +14,9 @@ const useAxiosSecure = () => {
 
     useEffect(() => {
         axiosSecure.interceptors.request.use((config) => {
-            const token = localStorage.getItem('access-token');
+            const token = localStorage.getItem('token');
             if (token) {
+                console.log(config.headers);
                 config.headers.Authorization = `Bearer ${token}`
             }
             return config;

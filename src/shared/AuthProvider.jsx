@@ -42,23 +42,27 @@ const AuthProvider = ({ children }) => {
     }
 
     useEffect(() => {
+        let ignore = false;
         const unsubscribe = onAuthStateChanged(auth, currentUser => {
+            if(ignore === true) return;
             setUser(currentUser);
             // setLoading(false);
             // get and set token
             if (currentUser) {
-                axios.post('https://bplugins-meal-api.vercel.app/api/v1/jwt', { email: currentUser.email })
+                axios.post('http://localhost:200/api/v1/jwt', { email: currentUser.email })
                     .then((data) => {
-                        localStorage.setItem('access-token', data?.data?.token)
+                        console.log(data?.data?.token)
+                        localStorage.setItem('token', data?.data?.token)
                         // setLoading(false);
                     })
             } else {
-                localStorage.removeItem('access-token');
+                localStorage.removeItem('token');
                 // setLoading(false);
             }
             setLoading(false);
         })
         return () => {
+            ignore = true;
             return unsubscribe();
         }
     }, []);
