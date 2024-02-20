@@ -60,13 +60,12 @@ const AuthProvider = ({ children }) => {
                     })
             } else {
                 localStorage.removeItem('token');
-                // setLoading(false);
+                setLoading(false);
             }
             return () => { ignore = true; }
 
         }
     }, [user])
-
 
     const authInfo = {
         user,
