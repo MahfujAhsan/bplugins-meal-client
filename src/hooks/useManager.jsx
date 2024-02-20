@@ -10,7 +10,7 @@ const useManager = () => {
         enabled: !loading,
         queryFn: async () => {
             try {
-                const res = await axiosSecure.get(`/api/v1/users/manager/user/${user?.email}`);
+                const res = await axiosSecure.get(`/api/v1/users/manager/${user?.email}`);
                 return res?.data?.manager;
             } catch (error) {
                 // Handle the error, e.g., log it or display an error message.
